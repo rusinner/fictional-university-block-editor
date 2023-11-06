@@ -225,12 +225,19 @@ function makeNotePrivate($data, $postarr)
 
 class JSXBlock
 {
-    function __construct($name)
+    function __construct($name, $renderCallback = null)
     {
         $this->name = $name;
+        $this->renderCallback = $renderCallback;
         add_action('init', array($this, 'onInit'));
     }
 
+    function ourRenderCallback($attributes, $content)
+    {
+        ob_start();
+        require get_theme_file_path("/our-blocks/{$this->name}.php");
+        return ob_get_clean();
+    }
     function onInit()
     {
         $globalJsObject = "BlockThemeData";
@@ -248,14 +255,18 @@ class JSXBlock
                 'themeDirectory' => get_template_directory_uri(),
             )
         );
+        $ourArgs = ["editor_script" => $this->name];
 
+        if ($this->renderCallback) {
+            $ourArgs['render_callback'] = [$this, 'ourRenderCallback'];
+        }
         register_block_type(
             "ourblocktheme/{$this->name}",
-            ["editor_script" => $this->name]
+            $ourArgs
         );
     }
 }
 
-new JSXBlock('banner');
+new JSXBlock('banner', true);
 new JSXBlock('genericheading');
 new JSXBlock('genericbutton');

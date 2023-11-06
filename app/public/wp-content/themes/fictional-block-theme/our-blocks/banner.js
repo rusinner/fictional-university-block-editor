@@ -37,19 +37,19 @@ function EditComponent() {
 }
 
 function SaveComponent() {
-  const { themeDirectory } = BlockThemeData;
+  return <InnerBlocks.Content />;
+}
 
-  return (
-    <div className="page-banner">
-      <div
-        className="page-banner__bg-image"
-        style={{
-          backgroundImage: `url('${themeDirectory}/images/library-hero.jpg')`,
-        }}
-      ></div>
-      <div className="page-banner__content container t-center c-white">
-        <InnerBlocks.Content />
-      </div>
-    </div>
-  );
+{
+  /* <div className="page-banner">
+  <div
+    className="page-banner__bg-image"
+    style={{
+      backgroundImage: `url('${themeDirectory}/images/library-hero.jpg')`,
+    }}
+  ></div>
+  <div className="page-banner__content container t-center c-white">
+    <InnerBlocks.Content />
+  </div>
+</div>; */
 }
