@@ -16,7 +16,6 @@ function EditComponent(props) {
   function handleTextChange(typingText) {
     props.setAttributes({ text: typingText });
   }
-  //this line is to fix relative path beacuse the bg image wasn't appearing before
   return (
     <>
       <BlockControls>
