@@ -16,6 +16,7 @@ license.txt
 readme.html
 wp-*.php
 xmlrpc.php
+app/public/wp-content/themes/fictional-block/theme/node_modules
 
 # Configuration
 wp-config.php
@@ -38,3 +39,4 @@ app/public/wp-content/uploads/
 conf
 logs
 local-xdebuginfo.php
+node_modules
