@@ -40,3 +40,4 @@ conf
 logs
 local-xdebuginfo.php
 node_modules
+build
