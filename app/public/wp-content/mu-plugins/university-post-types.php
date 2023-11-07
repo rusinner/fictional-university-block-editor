@@ -5,13 +5,13 @@ function university_post_types()
     // event post type
     register_post_type('event', array(
         'show_in_rest' => true,
-        'capability_type' => 'event',
+        // 'capability_type' => 'event',
         'map_meta_cap' => true,
         'supports' => array('title', 'editor', 'excerpt'),
         'rewrite' => array('slug' => 'events'),
         'has_archive' => true,
         'public' => true,
-        'show_in_rest' => true,
+        'show_ui' => true,
         'labels' => array(
             'name' => 'Events',
             'add_new_item' => 'Add New Event',
@@ -63,7 +63,7 @@ function university_post_types()
     // campus post type
     register_post_type('campus', array(
         'show_in_rest' => true,
-        'capability_type' => 'campus',
+        // 'capability_type' => 'campus',
         'map_meta_cap' => true,
         'supports' => array('title', 'editor', 'excerpt'),
         'rewrite' => array('slug' => 'campuses'),
@@ -83,7 +83,7 @@ function university_post_types()
 
     // notes post type
     register_post_type('note', array(
-        'capability_type' => 'note',
+        // 'capability_type' => 'note',
         'map_meta_cap' => true,
         'show_in_rest' => true,
         'supports' => array('title', 'editor'),
