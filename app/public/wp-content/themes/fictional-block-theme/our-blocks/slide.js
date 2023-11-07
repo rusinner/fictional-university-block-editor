@@ -9,8 +9,8 @@ import {
 import { registerBlockType } from "@wordpress/blocks";
 import { useEffect } from "@wordpress/element";
 
-registerBlockType("ourblocktheme/banner", {
-  title: "Banner",
+registerBlockType("ourblocktheme/slide", {
+  title: "Slide",
   supports: {
     align: ["full"],
   },
@@ -61,20 +61,22 @@ function EditComponent(props) {
           </PanelRow>
         </PanelBody>
       </InspectorControls>
-      <div className="page-banner">
-        <div
-          className="page-banner__bg-image"
-          style={{
-            backgroundImage: `url('${props.attributes.imgURL}')`,
-          }}
-        ></div>
-        <div className="page-banner__content container t-center c-white">
-          <InnerBlocks
-            allowedBlocks={[
-              "ourblocktheme/genericheading",
-              "ourblocktheme/genericbutton",
-            ]}
-          />
+
+      <div
+        className="hero-slider__slide"
+        style={{
+          backgroundImage: `url('${props.attributes.imgURL}')`,
+        }}
+      >
+        <div className="hero-slider__interior container">
+          <div className="hero-slider__overlay t-center">
+            <InnerBlocks
+              allowedBlocks={[
+                "ourblocktheme/genericheading",
+                "ourblocktheme/genericbutton",
+              ]}
+            />
+          </div>
         </div>
       </div>
     </>
