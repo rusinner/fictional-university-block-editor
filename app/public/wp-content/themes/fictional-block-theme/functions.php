@@ -240,30 +240,17 @@ class JSXBlock
     }
     function onInit()
     {
-        $globalJsObject = "BlockThemeData";
-        wp_register_script(
-            $this->name,
-            get_stylesheet_directory_uri() . "/build/{$this->name}.js",
-            ["wp-blocks", "wp-editor"]
-        );
+        wp_register_script($this->name, get_stylesheet_directory_uri() . "/build/{$this->name}.js", array('wp-blocks', 'wp-editor'));
 
-        // Localize the script with the theme directory URI
-        wp_localize_script(
-            $this->name,
-            $globalJsObject,
-            array(
-                'themeDirectory' => get_template_directory_uri(),
-            )
+        $ourArgs = array(
+            'editor_script' => $this->name
         );
-        $ourArgs = ["editor_script" => $this->name];
 
         if ($this->renderCallback) {
             $ourArgs['render_callback'] = [$this, 'ourRenderCallback'];
         }
-        register_block_type(
-            "ourblocktheme/{$this->name}",
-            $ourArgs
-        );
+
+        register_block_type("ourblocktheme/{$this->name}", $ourArgs);
     }
 }
 
