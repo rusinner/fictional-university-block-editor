@@ -15,6 +15,7 @@ registerBlockType("ourblocktheme/slide", {
     align: ["full"],
   },
   attributes: {
+    themeimage: { type: "string" },
     align: { type: "string", default: "full" },
     imgID: { type: "number" },
     //fallback image is from the object created in functions php inside onInit function
@@ -29,6 +30,15 @@ function EditComponent(props) {
     props.setAttributes({ imgID: uploadedImage.id });
   }
 
+  // this use Effect runs only at initial page load and checks for empty image values
+  useEffect(() => {
+    if (props.attributes.themeimage) {
+      props.setAtrributes({
+        imgURL: `${slide.themeimagepath} ${props.attributes.themeimage}`,
+      });
+    }
+  }, []);
+
   useEffect(() => {
     if (props.attributes.imgID) {
       async function go() {
@@ -37,6 +47,7 @@ function EditComponent(props) {
           method: "GET",
         });
         props.setAttributes({
+          themeimage: "",
           imgURL: response.media_details.sizes.pageBanner.source_url,
         });
       }
