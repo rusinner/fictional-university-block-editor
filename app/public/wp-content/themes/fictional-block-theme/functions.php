@@ -225,8 +225,9 @@ function makeNotePrivate($data, $postarr)
 
 class JSXBlock
 {
-    function __construct($name, $renderCallback = null)
+    function __construct($name, $renderCallback = null, $data = null)
     {
+        $this->data = $data;
         $this->name = $name;
         $this->renderCallback = $renderCallback;
         add_action('init', array($this, 'onInit'));
@@ -241,6 +242,11 @@ class JSXBlock
     function onInit()
     {
         wp_register_script($this->name, get_stylesheet_directory_uri() . "/build/{$this->name}.js", array('wp-blocks', 'wp-editor'));
+        //fallback to appear img on screen client side editor before choose new img
+        //this value is being linked with register script above and i can use it in javascript
+        if ($this->data) {
+            wp_localize_script($this->name, $this->name, $this->data);
+        }
 
         $ourArgs = array(
             'editor_script' => $this->name
@@ -254,6 +260,6 @@ class JSXBlock
     }
 }
 
-new JSXBlock('banner', true);
+new JSXBlock('banner', true, ['fallbackimage' => get_theme_file_uri('/images/library-hero.jpg')]);
 new JSXBlock('genericheading');
 new JSXBlock('genericbutton');
