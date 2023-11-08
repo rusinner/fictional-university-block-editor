@@ -31,29 +31,32 @@ function EditComponent(props) {
   }
 
   // this use Effect runs only at initial page load and checks for empty image values
-  useEffect(() => {
+  useEffect(function () {
     if (props.attributes.themeimage) {
-      props.setAtrributes({
-        imgURL: `${slide.themeimagepath} ${props.attributes.themeimage}`,
+      props.setAttributes({
+        imgURL: `${slide.themeimagepath}${props.attributes.themeimage}`,
       });
     }
   }, []);
 
-  useEffect(() => {
-    if (props.attributes.imgID) {
-      async function go() {
-        const response = await apiFetch({
-          path: `wp/v2/media/${props.attributes.imgID}`,
-          method: "GET",
-        });
-        props.setAttributes({
-          themeimage: "",
-          imgURL: response.media_details.sizes.pageBanner.source_url,
-        });
+  useEffect(
+    function () {
+      if (props.attributes.imgID) {
+        async function go() {
+          const response = await apiFetch({
+            path: `/wp/v2/media/${props.attributes.imgID}`,
+            method: "GET",
+          });
+          props.setAttributes({
+            themeimage: "",
+            imgURL: response.media_details.sizes.pageBanner.source_url,
+          });
+        }
+        go();
       }
-      go();
-    }
-  }, [props.attributes.imgID]);
+    },
+    [props.attributes.imgID]
+  );
 
   return (
     <>
