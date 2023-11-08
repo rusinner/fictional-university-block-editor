@@ -304,3 +304,21 @@ new PlaceholderBlock('programarchive');
 new PlaceholderBlock('singleprogram');
 new PlaceholderBlock('singleprofessor');
 new PlaceholderBlock('mynotes');
+
+
+//restrict block types at full site editing
+
+function myallowedblocks($allowed_block_types, $editor_context)
+{
+    //if i want to set allowed blocks for specific post type for example professors
+    // if ($editor_context->post->post_type == 'professor') {
+    //     return array('ourblocktheme/header', 'ourblocktheme/footer','core/paragraph);
+    // }
+    // page or post editor screen
+    if (!empty($editor_context->post)) {
+        return $allowed_block_types;
+    }
+    //full site editor screen
+    return array('ourblocktheme/header', 'ourblocktheme/footer');
+}
+add_filter('allowed_block_types_all', 'myallowedblocks', 10, 2);
